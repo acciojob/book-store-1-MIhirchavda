@@ -57,7 +57,7 @@ public class BookController {
     // pass id as path variable
     // getBookById()
     @GetMapping("/get-book-by-id/{id}")
-    public ResponseEntity getBookById(@PathVariable("id") int id ){
+    public ResponseEntity getBookById(@PathVariable int id ){
         for(Book b: bookList){
             if(b.getId() == id){
                return new ResponseEntity<>(b , HttpStatus.OK);
@@ -85,7 +85,7 @@ public class BookController {
     @GetMapping("/get-all-books")
     public ResponseEntity getAllBooks(){
 
-        return new ResponseEntity(bookList ,HttpStatus.OK);
+        return new ResponseEntity<>(bookList ,HttpStatus.OK);
     }
 
     // delete request /delete-all-books
@@ -107,19 +107,19 @@ public class BookController {
                 return new ResponseEntity<>(b , HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>("Not found",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("wrong author name",HttpStatus.BAD_REQUEST);
     }
 
     // get request /get-books-by-genre
     // pass genre name as request param
     // getBooksByGenre()
     @GetMapping("/get-books-by-genre")
-    public ResponseEntity getBooksByGenre(@RequestParam("genre") String genre){
+    public ResponseEntity getBooksByGenre(@RequestParam String genre){
         for (Book b : bookList){
             if (b.getGenre().equals(genre)){
                 return new ResponseEntity(b ,HttpStatus.OK);
             }
         }
-        return new ResponseEntity("book not found" , HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("no book found" , HttpStatus.BAD_REQUEST);
     }
 }
